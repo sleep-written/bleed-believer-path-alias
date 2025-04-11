@@ -1,0 +1,29 @@
+{
+  "$schema": "https://swc.rs/schema.json",
+  "module": {
+    "strict": true,
+    "type": "es6",
+    "resolveFully": true
+  },
+  "jsc": {
+    "target": "es2022",
+    "parser": {
+      "syntax": "typescript",
+      "decorators": true
+    },
+    "transform": {
+      "decoratorMetadata": true
+    },
+    "baseUrl": "./src",
+    "paths": {
+      "@tool/*": [ "./tool/*" ],
+      "@/*": [ "./*" ]
+    }
+  },
+  "sourceMaps": false,
+  "exclude": [
+    ".fake.ts",
+    ".mock.ts",
+    ".test.ts"
+  ]
+}

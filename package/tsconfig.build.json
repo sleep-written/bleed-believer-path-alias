@@ -1,0 +1,12 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "noEmit": true,
+        "declaration": true
+    },
+    "exclude": [
+        "./src/**/*.fake.ts",
+        "./src/**/*.mock.ts",
+        "./src/**/*.test.ts"
+    ]
+}
