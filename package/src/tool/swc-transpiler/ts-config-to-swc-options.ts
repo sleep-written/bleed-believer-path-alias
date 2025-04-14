@@ -1,8 +1,7 @@
 import type { TsConfigResult } from 'get-tsconfig';
 import type { Options } from '@swc/core';
 
-import { dirname, join, resolve } from 'path';
-import micromatch from 'micromatch';
+import { dirname, resolve } from 'path';
 
 const cache = new Map<TsConfigResult, Options>();
 export function tsConfigToSwcOptions(tsConfigResult: TsConfigResult): Options {

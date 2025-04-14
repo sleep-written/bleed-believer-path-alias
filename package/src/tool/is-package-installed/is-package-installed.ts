@@ -33,8 +33,14 @@ export function isPackageInstalled(moduleName: string): boolean {
     // Este es el momento en que deberías tratar distintos tipos de error
     // pero como típico juniorputo lo ignoras todo con un catch vacío
     // Al menos revisemos si es un error de "module not found" vs otras mierdas
-    if (error.code !== 'MODULE_NOT_FOUND') {
-      console.warn(`Error inesperado verificando "${normalizedName}": ${error.message}`);
+    switch (error.code) {
+      case 'MODULE_NOT_FOUND':
+      case 'ERR_PACKAGE_PATH_NOT_EXPORTED':
+        break;
+
+      default:
+        console.warn(`Error inesperado verificando "${normalizedName}": ${error.message}`);
+        break;
     }
     
     cache.set(normalizedName, false);

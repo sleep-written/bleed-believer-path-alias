@@ -1,7 +1,6 @@
 {
   "$schema": "https://swc.rs/schema.json",
   "module": {
-    "strict": true,
     "type": "es6",
     "resolveFully": true
   },
@@ -20,10 +19,5 @@
       "@/*": [ "./*" ]
     }
   },
-  "sourceMaps": false,
-  "exclude": [
-    ".fake.ts",
-    ".mock.ts",
-    ".test.ts"
-  ]
+  "sourceMaps": true
 }

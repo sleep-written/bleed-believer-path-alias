@@ -10,7 +10,7 @@ import type {
 } from './interfaces/index.js';
 import type { TsConfigResult } from 'get-tsconfig';
 
-import { basename, dirname, join, normalize } from 'path';
+import { basename, dirname, join, normalize, relative } from 'path';
 import { mkdir, writeFile } from 'fs/promises';
 import { transformFile } from '@swc/core';
 import fastGlob from 'fast-glob';
@@ -87,12 +87,13 @@ export class SwcTranspiler {
         }));
     }
 
-    async build() {
+    async build(callback?: (source?: string, output?: string) => void) {
         const tsConfigResult = this.#getTsConfig(this.#path, { process: this.#process });
         if (!tsConfigResult || !tsConfigResult.config) {
             throw new Error('Invalid tsConfigResult provided.');
         }
 
+        const cwd = dirname(tsConfigResult.path);
         const sources = await this.getSourceCode(tsConfigResult);
         for (const source of sources) {
             const swcOptions = tsConfigToSwcOptions(tsConfigResult);
@@ -114,6 +115,10 @@ export class SwcTranspiler {
             }
 
             await this.#writeFile(source.outPath, code, 'utf-8');
+            callback?.(
+                relative(cwd, source.rootPath),
+                relative(cwd, source.outPath)
+            );
         }
     }
 }

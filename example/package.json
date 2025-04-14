@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "scripts": {
+    "test": "ava",
+    "clean": "rm -rf ./dist"
+  },
+  "devDependencies": {
+    "@bleed-believer/path-alias": "file:../package",
+    "@types/node": "^22.14.0",
+    "ava": "^6.2.0",
+    "typescript": "^5.8.3"
+  }
+}

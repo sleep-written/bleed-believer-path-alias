@@ -204,29 +204,6 @@ test('Correctly configure baseUrl and paths', t => {
     });
 });
 
-// Test de exclude
-test.skip('Correctly transform exclude patterns', t => {
-    // Given
-    const tsConfigResult: TsConfigResult = {
-        path: '/tralalero/tralala/tsconfig.json',
-        config: {
-            exclude: [
-                '**/*.test.ts',
-                'node_modules'
-            ]
-        }
-    };
-
-    // When
-    const options = tsConfigToSwcOptions(tsConfigResult);
-
-    // Then
-    t.deepEqual(options.exclude, [
-        'mocked_/tralalero/tralala/**/*.test.ts',
-        'mocked_/tralalero/tralala/node_modules'
-    ]);
-});
-
 // Test de comentarios
 test('Correctly configure comment preservation', t => {
     // Given
