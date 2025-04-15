@@ -1,6 +1,6 @@
 {
   "name": "@bleed-believer/path-alias",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Assign path alias using tsconfig.json file",
   "type": "module",
   "module": "./dist/index.js",
@@ -51,9 +51,9 @@
     "node": ">=20.0.0"
   },
   "bugs": {
-    "url": "https://github.com/sleep-written/bleed-believer/issues"
+    "url": "https://github.com/sleep-written/bleed-believer-path-alias/issues"
   },
-  "homepage": "https://github.com/sleep-written/bleed-believer#readme",
+  "homepage": "https://github.com/sleep-written/bleed-believer-path-alias#readme",
   "dependencies": {
     "@swc/core": "^1.11.20",
     "fast-glob": "^3.3.3",
