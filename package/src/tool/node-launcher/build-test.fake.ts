@@ -8,7 +8,7 @@ import { SpawnFake } from './spawn.fake.js';
 export function buildTest(watch: boolean, targetPath: string, ...targetArgs: string[]): void {
     const textArgs = targetArgs
         .map(x => `"${x}"`)
-        .join('", "');
+        .join(', ');
 
     test(`target: "${targetPath}"; args: [ ${textArgs} ]; watch: ${watch}`, async t => {
         const spawnFake = new SpawnFake();

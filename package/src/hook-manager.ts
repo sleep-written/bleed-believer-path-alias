@@ -59,7 +59,7 @@ export class HookManager {
                 // Get the value stored in cache
                 specifier = cache;
 
-            } else if (isPackageInstalled(specifier)) {
+            } else if (isPackageInstalled(specifier, context.parentURL)) {
                 // Store the module specifier in cache
                 this.#resolveCache.set(specifier, specifier);
 
@@ -67,8 +67,17 @@ export class HookManager {
                 const path = resolve(fileURLToPath(context.parentURL), '..', specifier);
                 if (!await this.#fileExist(path)) {
                     // Recalculate using outDir and rootDir
-                    const tsPath = new ExtParser(path).toTs().replace(this.#outDir, this.#rootDir);
-                    const jsPath = new ExtParser(path).toJs().replace(this.#rootDir, this.#outDir);
+                    // const tsPath = new ExtParser(path).toTs().replace(this.#outDir, this.#rootDir);
+                    // const jsPath = new ExtParser(path).toJs().replace(this.#rootDir, this.#outDir);
+
+                    const tsPath = typeof this.#outDir === 'string' && typeof this.#rootDir === 'string'
+                    ?   new ExtParser(path).toTs().replace(this.#outDir, this.#rootDir)
+                    :   new ExtParser(path).toTs();
+
+                    const jsPath = typeof this.#outDir === 'string' && typeof this.#rootDir === 'string'
+                    ?   new ExtParser(path).toJs().replace(this.#rootDir, this.#outDir)
+                    :   new ExtParser(path).toJs();
+
                     if (await this.#fileExist(tsPath)) {
                         specifier = new ExtParser(specifier).toTs();
     

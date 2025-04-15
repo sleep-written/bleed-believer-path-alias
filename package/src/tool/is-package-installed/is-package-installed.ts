@@ -9,9 +9,15 @@ const cache = new Map<string, boolean>();
  * @param {string} moduleName - The name of the package to check.
  * @returns {boolean} - Returns true if the package is installed, or if it is a native Node module; otherwise, returns false.
  */
-export function isPackageInstalled(moduleName: string): boolean {
+export function isPackageInstalled(moduleName: string, url?: string): boolean {
   // Normaliza el nombre para evitar duplicados en caché por formato
   const normalizedName = moduleName.trim();
+
+  // Si es una ruta relativa, retorna false inmediatamente
+  if (normalizedName.startsWith('./') || normalizedName.startsWith('../')) {
+    cache.set(normalizedName, false);
+    return false;
+  }
   
   // Revisa caché primero
   if (cache.has(normalizedName)) {
@@ -25,10 +31,24 @@ export function isPackageInstalled(moduleName: string): boolean {
   }
 
   try {
-    const require = createRequire(import.meta.url);
+    // if (typeof url === 'string') {
+    //   const require = createRequire(import.meta.url);
+    //   require.resolve(normalizedName);
+    //   cache.set(normalizedName, true);
+    //   return true;
+
+    // } else {
+    //   const error = new Error('JajjajJA') as any;
+    //   error.code = 'MODULE_NOT_FOUND';
+    //   throw error;
+
+    // }
+
+    const require = createRequire(url ?? import.meta.url);
     require.resolve(normalizedName);
     cache.set(normalizedName, true);
     return true;
+
   } catch (error: any) {
     // Este es el momento en que deberías tratar distintos tipos de error
     // pero como típico juniorputo lo ignoras todo con un catch vacío
@@ -39,7 +59,7 @@ export function isPackageInstalled(moduleName: string): boolean {
         break;
 
       default:
-        console.warn(`Error inesperado verificando "${normalizedName}": ${error.message}`);
+        console.warn(`Unexpected error checking "${normalizedName}": ${error.message}`);
         break;
     }
     

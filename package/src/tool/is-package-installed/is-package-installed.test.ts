@@ -3,7 +3,7 @@ import test from 'ava';
 
 test('should return true for an installed module (e.g., "tslog")', t => {
     const moduleName = 'tslog';
-    const result = isPackageInstalled(moduleName);
+    const result = isPackageInstalled(moduleName, import.meta.url);
     t.true(result, `"${moduleName}" should be installed`);
 });
 
@@ -21,12 +21,12 @@ test('should return true for a built-in Node.js module (e.g., "fs")', t => {
 
 test('should return true for an installed scoped module (if applicable)', t => {
     const moduleName = '@swc/core'; // Asegúrate de que este módulo esté instalado
-    const result = isPackageInstalled(moduleName);
+    const result = isPackageInstalled(moduleName, import.meta.url);
     t.true(result, `"${moduleName}" should be installed`);
 });
 
 test('should return true for an installed module subpath', t => {
     const moduleName = 'yargs/helpers'; // Ajusta según la estructura del paquete
-    const result = isPackageInstalled(moduleName);
+    const result = isPackageInstalled(moduleName, import.meta.url);
     t.true(result, `"${moduleName}" subpath should be resolvable if "yargs" is installed`);
 });
