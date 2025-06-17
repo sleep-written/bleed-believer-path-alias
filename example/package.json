@@ -6,8 +6,8 @@
   },
   "devDependencies": {
     "@bleed-believer/path-alias": "file:../package",
-    "@types/node": "^22.14.0",
-    "ava": "^6.2.0",
+    "@types/node": "^24.0.3",
+    "ava": "^6.4.0",
     "typescript": "^5.8.3"
   }
 }

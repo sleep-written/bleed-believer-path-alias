@@ -146,6 +146,19 @@ export class HookManager {
                 return out;
             }
         }
+
+        if (context.format === 'json') {
+            // Added JSON compatibility
+            if (this.#tsConfig.config.compilerOptions?.resolveJsonModule) {
+                if (!context.importAttributes) { context.importAttributes = {}; }
+                context.importAttributes = { type: 'json' };
+            } else {
+                throw new Error([
+                    'To import a JSON file, first sets in your tsconfig.json configuration',
+                    'file the property ["compilerOptions"]["resolveJsonModule"] into `true`'
+                ].join(` `));
+            }
+        }
         
         out = await defaultLoad(url, context);
         this.#loadCache.set(url, out);

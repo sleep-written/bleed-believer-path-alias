@@ -45,7 +45,7 @@ export function tsConfigToSwcOptions(tsConfigResult: TsConfigResult): Options {
             paths
         };
     
-    switch (module) {
+    switch (module?.toLowerCase()) {
         case 'umd':
         case 'none':
         case 'system':
@@ -54,23 +54,17 @@ export function tsConfigToSwcOptions(tsConfigResult: TsConfigResult): Options {
             break;
         }
 
-        case 'nodenext': {
-            options.isModule = true;
-            options.module = {
-                strict: true,
-                strictMode: true,
-                type: 'nodenext',
-                resolveFully: true
-            } as any;
-            break;
-        }
-
         default: {
+            const type = module === 'nodenext'
+                ?   'nodenext'
+                :   'es6';
+
+
             options.isModule = true;
             options.module = {
+                type,
                 strict: true,
                 strictMode: true,
-                type: 'es6',
                 resolveFully: true
             } as any;
         }
